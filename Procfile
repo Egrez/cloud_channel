@@ -1,0 +1,1 @@
+web: python manage.py migrate && python manage.py collectstatic && gunicorn cloud_h20.wsgi
