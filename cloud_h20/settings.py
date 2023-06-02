@@ -35,6 +35,7 @@ CSRF_TRUSTED_ORIGINS = ['web-production-859c.up.railway.app']
 
 INSTALLED_APPS = [
     'daphne',
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
