@@ -8,17 +8,19 @@ https://docs.djangoproject.com/en/3.2/howto/deployment/asgi/
 """
 
 import os
-
-from channels.routing import ProtocolTypeRouter, URLRouter
-from channels.security.websocket import AllowedHostsOriginValidator
-from channels.auth import AuthMiddlewareStack
 from django.core.asgi import get_asgi_application
-
-import sensors.routing
-
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cloud_h20.settings')
 
 django_asgi_app = get_asgi_application()
+
+from channels.routing import ProtocolTypeRouter, URLRouter
+
+from channels.security.websocket import AllowedHostsOriginValidator
+from channels.auth import AuthMiddlewareStack
+
+import sensors.routing
+
+
 
 application = ProtocolTypeRouter({
     "http": django_asgi_app,
@@ -26,4 +28,26 @@ application = ProtocolTypeRouter({
         AuthMiddlewareStack(URLRouter(sensors.routing.websocket_urlpatterns)
         )
     ,
+})
+
+import os
+from django.conf.urls import url
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mc_backend.settings')
+
+from channels.routing import ProtocolTypeRouter, URLRouter
+from django.core.asgi import get_asgi_application
+django_asgi_app = get_asgi_application()
+
+from channels.auth import AuthMiddlewareStack   
+import api_backend.routing
+
+
+application = ProtocolTypeRouter({
+    "http": django_asgi_app,
+    'websocket': AuthMiddlewareStack(
+        URLRouter(
+            api_backend.routing.websocket_urlpatterns
+        )
+    )
 })
