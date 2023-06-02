@@ -1,3 +1,4 @@
+
 # chat_client.py
 
 import asyncio
@@ -25,7 +26,7 @@ async def sent_message_handler(websocket):
 
 
 async def main():
-    uri = "wss://localhost:8000/ws/sensor"
+    uri = "wss://web-production-859c.up.railway.app/ws/sensor"
 
     session = requests.Session()
 
@@ -34,14 +35,13 @@ async def main():
 
     post_data = {'username': username, 'password' : password}
 
-    session.post('https://localhost:8000/signin', data=post_data)
+    session.post('https://web-production-859c.up.railway.app/signin', data=post_data)
 
     cookies = session.cookies.get_dict()
 
+    print(uri)
+
     print(cookies)
-
-    # sign in POST request
-
 
     async with websockets.connect(uri, extra_headers=cookies) as websocket:
         await asyncio.gather(
