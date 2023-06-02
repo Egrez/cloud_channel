@@ -1,1 +1,1 @@
-web: python manage.py migrate && python manage.py collectstatic && gunicorn cloud_h20.wsgi
+web: python manage.py migrate && python manage.py collectstatic && gunicorn cloud_h20.wsgi && daphne cloud_h20.asgi:application
