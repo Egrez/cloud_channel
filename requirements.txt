@@ -43,3 +43,4 @@ websocket-client==1.5.2
 websockets==11.0.3
 whitenoise==6.2.0
 zope.interface==6.0
+wheel==0.40.0
